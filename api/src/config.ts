@@ -9,6 +9,7 @@ const required = (name: string, value?: string): string => {
 
 const config = {
   port: required("PORT", process.env.PORT),
+  jwtSecret: required("JWT_SECRET", process.env.JWT_SECRET),
   azureStorage: {
     sasToken: required(
       "AZURE_STORAGE_SAS_TOKEN",
