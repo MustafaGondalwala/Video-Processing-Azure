@@ -4,10 +4,12 @@ import uploadMiddleware from "./middlewares/upload";
 import logger from "./middlewares/logger";
 import config from "./config";
 import morganMiddleware from "./middlewares/morgan";
+import cors from "cors";
 
 const app = express();
 const PORT = config.port;
 
+app.use(cors()); // Add this line to enable CORS
 app.use(express.json());
 app.use(morganMiddleware); // Add morgan middleware
 
