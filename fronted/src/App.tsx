@@ -1,13 +1,12 @@
 import React from "react";
-import "./App.css";
-import FileUpload from "./components/FileUpload";
+import Routes from "./routes";
+import Navbar from "./components/Navbar";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <FileUpload />
-      </header>
+      <Navbar />
+      <Routes />
     </div>
   );
 };
