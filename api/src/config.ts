@@ -19,9 +19,9 @@ const config = {
       "AZURE_STORAGE_ACCOUNT_NAME",
       process.env.AZURE_STORAGE_ACCOUNT_NAME
     ),
-    containerName: required(
-      "AZURE_STORAGE_CONTAINER_NAME",
-      process.env.AZURE_STORAGE_CONTAINER_NAME
+    accountKey: required(
+      "AZURE_STORAGE_ACCOUNT_KEY",
+      process.env.AZURE_STORAGE_ACCOUNT_KEY
     ),
   },
 };

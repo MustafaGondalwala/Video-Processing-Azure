@@ -1,12 +1,10 @@
 import express from "express";
-import mongoose from "mongoose";
-import userRoutes from "./routes/user.route";
-import videoController from "./controllers/video.controller";
-import uploadMiddleware from "./middlewares/upload";
-import logger from "./middlewares/logger";
-import config from "./config";
+import userRoutes from "./routes/user.router";
+import sasTokenRouter from "./routes/sasToken.router";
 import morganMiddleware from "./middlewares/morgan";
 import cors from "cors";
+import mongoose from "mongoose";
+import config from "./config";
 
 const app = express();
 const PORT = config.port;
@@ -17,12 +15,12 @@ app.use(morganMiddleware);
 
 mongoose
   .connect(process.env.MONGO_URI!)
-  .then(() => logger.info("Connected to MongoDB"))
-  .catch((err) => logger.error("Failed to connect to MongoDB", err));
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Failed to connect to MongoDB", err));
 
 app.use("/users", userRoutes);
-app.post("/upload", uploadMiddleware, videoController.upload);
+app.use("/sas-token", sasTokenRouter);
 
 app.listen(PORT, () => {
-  logger.info(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
