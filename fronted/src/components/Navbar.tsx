@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          Media Processing
+          MyApp
         </Link>
         <button
           className="navbar-toggler"
@@ -36,6 +36,16 @@ const Navbar: React.FC = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/login">
                 Login
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard">
+                Dashboard
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/file-upload">
+                Upload File
               </Link>
             </li>
             <li className="nav-item">
