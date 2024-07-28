@@ -8,13 +8,9 @@ class VideoController {
       if (!req.file) {
         return res.status(400).send("No file uploaded.");
       }
-      await videoService.uploadToAzure(req.file);
-      res.status(200).send({
-        data: {
-          message: `File Uploadded Successfully`,
-        },
-      });
-    } catch (error: any) {
+      const result = await videoService.uploadToAzure(req.file);
+      res.status(200).send(result);
+    } catch (error:any) {
       logger.error(`Upload failed: ${error.message}`);
       res.status(500).send("Internal Server Error");
     }
