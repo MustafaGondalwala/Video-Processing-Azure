@@ -1,6 +1,14 @@
-version: "3.8"
+version: '3.8'
 
 services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo_container
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq_container
@@ -10,9 +18,43 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: password
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: api_container
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://mongo_container:27017/api_db
+      - RABBITMQ_URL=amqp://user:password@rabbitmq_container:5672/
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+      - rabbitmq
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend_container
+    ports:
+      - "3001:3000"
+    depends_on:
+      - api
+
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    container_name: worker_container
+    environment:
+      - MONGO_URI=mongodb://mongo_container:27017/api_db
+      - RABBITMQ_URL=amqp://user:password@rabbitmq_container:5672/
+    depends_on:
+      - mongo
+      - rabbitmq
 
 volumes:
-  rabbitmq_data:
-    driver: local
+  mongo_data:
