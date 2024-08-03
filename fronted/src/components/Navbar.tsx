@@ -49,6 +49,11 @@ const Navbar: React.FC = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/files">
+                Files
+              </Link>
+            </li>
+            <li className="nav-item">
               <button className="btn btn-link nav-link" onClick={handleLogout}>
                 Logout
               </button>

@@ -27,3 +27,37 @@ export const uploadFileToAzure = async (
     onUploadProgress,
   });
 };
+
+export const getAllFiles = async (
+  page: number,
+  limit: number,
+  token: string
+) => {
+  const response = await axios.get(`${API_BASE_URL}/users/files`, {
+    params: { page, limit },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const getFileById = async (fileId: string, token: string) => {
+  const response = await axios.get(`${API_BASE_URL}/users/files/${fileId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+export const getTemporaryUrl = async (fileId: string, token: string) => {
+  const response = await axios.get(
+    `${API_BASE_URL}/users/files/${fileId}/temporary-url`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data.url;
+};

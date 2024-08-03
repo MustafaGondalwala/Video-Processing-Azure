@@ -24,6 +24,7 @@ const config = {
       process.env.AZURE_STORAGE_ACCOUNT_KEY
     ),
   },
+  rabbitmqUrl: required("RABBITMQ_URL", process.env.RABBITMQ_URL),
 };
 
 export default config;
